@@ -4,10 +4,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Graph {
     private static final Logger logger = LogManager.getLogger(Graph.class);
-    private final ArrayList<Edge> edges;
+    private final List<Edge> edges;
     private Graph(Builder builder) {
         edges = builder.edges;
     }
@@ -30,8 +31,8 @@ public class Graph {
         return false;
     }
 
-    ArrayList<Edge> getEdgesByPoint(int startPoint) {
-        ArrayList<Edge> result = new ArrayList<>();
+    List<Edge> getEdgesByPoint(int startPoint) {
+        List<Edge> result = new ArrayList<>();
         for (Edge edge: edges) {
             if (edge.getStartPoint() == startPoint) {
                 result.add(edge);
@@ -49,7 +50,7 @@ public class Graph {
     }
 
     public static class Builder {
-        private ArrayList<Edge> edges = new ArrayList<>();
+        private List<Edge> edges = new ArrayList<>();
         public Graph build() {
             Graph graph = new Graph(this);
             Graph.logger.info("Created new Graph:\n" + graph);

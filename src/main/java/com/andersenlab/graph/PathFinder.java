@@ -4,12 +4,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PathFinder {
     private final Logger logger = LogManager.getLogger(Graph.class);
     public static final String CANT_FIND_EXCEPTION_TEXT = "Can't create Edge with equal start point and end point";
-    private ArrayList<Path> openPaths = new ArrayList<>();
-    private ArrayList<Path> finishedPaths = new ArrayList<>();
+    private List<Path> openPaths = new ArrayList<>();
+    private List<Path> finishedPaths = new ArrayList<>();
     private final Graph graph;
     private final int startPoint;
     private final int endPoint;
@@ -19,17 +20,17 @@ public class PathFinder {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
     }
-    public ArrayList<Edge> getOptiomalPath() throws Exception {
+    public List<Edge> getOptiomalPath() throws Exception {
         if (!graph.hasStartPoint(startPoint) || !graph.hasEndPoint(endPoint)) {
             logger.error(CANT_FIND_EXCEPTION_TEXT);
             throw new Exception(CANT_FIND_EXCEPTION_TEXT);
         }
         initSearch();
-        ArrayList<Path> newOpenPaths;
+        List<Path> newOpenPaths;
         while (openPaths.size() > 0) {
             newOpenPaths = new ArrayList<>();
             for (Path pathIter: openPaths) {
-                ArrayList<Edge> lastEdges = graph.getEdgesByPoint(pathIter.getLastPoint());
+                List<Edge> lastEdges = graph.getEdgesByPoint(pathIter.getLastPoint());
                 for (Edge edge : lastEdges) {
                     if (!pathIter.hasEdge(edge)) {
                         Path newPath = Path.newPath(pathIter, edge);
@@ -57,7 +58,7 @@ public class PathFinder {
         }
     }
 
-    private ArrayList<Edge> getMinimumWeightPath(ArrayList<Path> paths) {
+    private List<Edge> getMinimumWeightPath(List<Path> paths) {
         Path easiestPath = paths.get(0);
         for (Path path: paths) {
             if (path.weight < easiestPath.weight) {
@@ -69,7 +70,7 @@ public class PathFinder {
 
     private static class Path {
         private double weight = 0;
-        private ArrayList<Edge> edges = new ArrayList<>();
+        private List<Edge> edges = new ArrayList<>();
 
         private static Path initPath(Edge edge) {
             Path result = new Path();

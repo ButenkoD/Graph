@@ -4,25 +4,16 @@ import com.andersenlab.graph.*;
 
 public class BuilderTest {
     @Test
-    public void testBuilder() {
-        try {
-            Graph graph = new Graph.Builder()
-                .edge(1, 3, 1)
-                .build();
-            assertEquals("Graph", graph.getClass().getSimpleName());
-        } catch (Exception exception) {
-            assertEquals(Edge.CREATE_EXCEPTION_TEXT, exception.getMessage());
-        }
+    public void testBuilder() throws Exception {
+        Graph graph = new Graph.Builder()
+            .edge(1, 3, 1)
+            .build();
+        assertEquals("Graph", graph.getClass().getSimpleName());
     }
-    @Test
-    public void testBuilderException() {
-        try {
-            Graph graph = new Graph.Builder()
-                .edge(1, 1, 1)
-                .build();
-            assertEquals("Graph", graph.getClass().getSimpleName());
-        } catch (Exception exception) {
-            assertEquals(Edge.CREATE_EXCEPTION_TEXT, exception.getMessage());
-        }
+    @Test(expected = Exception.class)
+    public void testBuilderException() throws Exception {
+        new Graph.Builder()
+            .edge(1, 1, 1)
+            .build();
     }
 }
