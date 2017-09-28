@@ -1,6 +1,5 @@
-import com.andersenlab.graph.Edge;
-import com.andersenlab.graph.Graph;
-import com.andersenlab.graph.PathFinder;
+package com.andersenlab.graph;
+
 import org.junit.Test;
 
 import java.util.List;
@@ -65,6 +64,6 @@ public class PathFinderTest {
                 .edge(1, 2, 1)
                 .edge(4, 5, 1)
                 .build();
-        List<Edge> edges = new PathFinder(graph, 2, 3).getOptiomalPath();
+        new PathFinder(graph, 2, 3).getOptiomalPath();
     }
 }
