@@ -1,5 +1,6 @@
 package com.andersenlab.graph;
 
+import com.google.common.collect.ImmutableList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,7 +11,7 @@ public class Graph {
     private static final Logger logger = LogManager.getLogger(Graph.class);
     private final List<Edge> edges;
     private Graph(Builder builder) {
-        edges = builder.edges;
+        edges = ImmutableList.copyOf(builder.edges);
     }
 
     public boolean hasStartPoint(int startPoint) {

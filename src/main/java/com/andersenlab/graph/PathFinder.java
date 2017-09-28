@@ -26,9 +26,8 @@ public class PathFinder {
             throw new Exception(CANT_FIND_EXCEPTION_TEXT);
         }
         initSearch();
-        List<Path> newOpenPaths;
+        List<Path> newOpenPaths = new ArrayList<>();
         while (openPaths.size() > 0) {
-            newOpenPaths = new ArrayList<>();
             for (Path pathIter: openPaths) {
                 List<Edge> lastEdges = graph.getEdgesByPoint(pathIter.getLastPoint());
                 for (Edge edge : lastEdges) {
@@ -43,6 +42,7 @@ public class PathFinder {
                 }
             }
             openPaths = newOpenPaths;
+            newOpenPaths.clear();
         }
         return getMinimumWeightPath(finishedPaths);
     }
