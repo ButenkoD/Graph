@@ -14,7 +14,7 @@ public class Graph {
         edges = ImmutableList.copyOf(builder.edges);
     }
 
-    public boolean hasStartPoint(int startPoint) {
+    boolean hasStartPoint(int startPoint) {
         for (Edge edge: edges) {
             if (edge.getStartPoint() == startPoint) {
                 return true;
@@ -23,7 +23,7 @@ public class Graph {
         return false;
     }
 
-    public boolean hasEndPoint(int endPoint) {
+    boolean hasEndPoint(int endPoint) {
         for (Edge edge: edges) {
             if (edge.getEndPoint() == endPoint) {
                 return true;

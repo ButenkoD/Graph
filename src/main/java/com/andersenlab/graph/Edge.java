@@ -5,12 +5,12 @@ import org.apache.logging.log4j.Logger;
 
 public class Edge {
     private static final Logger logger = LogManager.getLogger(Graph.class);
-    public static final String CREATE_EXCEPTION_TEXT = "Can't create Edge with equal start point and end point";
+    private static final String CREATE_EXCEPTION_TEXT = "Can't create Edge with equal start point and end point";
     private final int startPoint;
     private final int endPoint;
     private final double weight;
 
-    public Edge(int startPoint, int endPoint, double weight) throws Exception {
+    Edge(int startPoint, int endPoint, double weight) throws Exception {
         if (startPoint == endPoint) {
             logger.error(CREATE_EXCEPTION_TEXT + ": " + Integer.toString(startPoint));
             throw new Exception(CREATE_EXCEPTION_TEXT);
@@ -20,15 +20,15 @@ public class Edge {
         this.weight = weight;
     }
 
-    public int getStartPoint() {
+    int getStartPoint() {
         return startPoint;
     }
 
-    public int getEndPoint() {
+    int getEndPoint() {
         return endPoint;
     }
 
-    public double getWeight() {
+    double getWeight() {
         return weight;
     }
 
