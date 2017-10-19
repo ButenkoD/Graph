@@ -9,24 +9,17 @@ import java.util.List;
 public class PathFinder {
     private final Logger logger = LogManager.getLogger(Graph.class);
     public static final String CANT_FIND_EXCEPTION_TEXT = "Can't create Edge with equal start point and end point";
-    private List<Path> openPaths = new ArrayList<>();
-    private List<Path> finishedPaths = new ArrayList<>();
     private final Graph graph;
-    private final int startPoint;
-    private final int endPoint;
 
-    public PathFinder(Graph graph, int startPoint, int endPoint) {
+    public PathFinder(Graph graph) {
         this.graph = graph;
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
     }
-    public List<Edge> getOptiomalPath() throws Exception {
-        if (!graph.hasStartPoint(startPoint) || !graph.hasEndPoint(endPoint)) {
-            logger.error(CANT_FIND_EXCEPTION_TEXT);
-            throw new Exception(CANT_FIND_EXCEPTION_TEXT);
-        }
-        initSearch();
+    public List<Edge> getOptiomalPath(int startPoint, int endPoint) throws Exception {
+        checkIfPathCanBeFound(startPoint, endPoint);
+        List<Path> openPaths = new ArrayList<>();
+        List<Path> finishedPaths = new ArrayList<>();
         List<Path> newOpenPaths = new ArrayList<>();
+        initSearch(startPoint, endPoint, openPaths, finishedPaths);
         while (openPaths.size() > 0) {
             for (Path pathIter: openPaths) {
                 List<Edge> lastEdges = graph.getEdgesByPoint(pathIter.getLastPoint());
@@ -47,7 +40,14 @@ public class PathFinder {
         return getMinimumWeightPath(finishedPaths);
     }
 
-    private void initSearch() {
+    private void checkIfPathCanBeFound(int startPoint, int endPoint) throws Exception {
+        if (!graph.hasStartPoint(startPoint) || !graph.hasEndPoint(endPoint)) {
+            logger.error(CANT_FIND_EXCEPTION_TEXT);
+            throw new Exception(CANT_FIND_EXCEPTION_TEXT);
+        }
+    }
+
+    private void initSearch(int startPoint, int endPoint, List<Path> openPaths, List<Path> finishedPaths) {
         for (Edge edge : graph.getEdgesByPoint(startPoint)) {
             Path newPath = Path.initPath(edge);
             if (newPath.reachedFinish(endPoint)) {

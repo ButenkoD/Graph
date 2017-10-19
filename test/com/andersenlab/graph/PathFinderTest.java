@@ -20,7 +20,7 @@ public class PathFinderTest {
                 .edge(4, 5, 1)
                 .edge(2, 4, 5.1)
                 .build();
-        List<Edge> edges = new PathFinder(graph, 1, 4).getOptiomalPath();
+        List<Edge> edges = new PathFinder(graph).getOptiomalPath(1, 4);
         assertEquals(2, edges.get(0).getWeight(), 0.1);
     }
 
@@ -37,7 +37,7 @@ public class PathFinderTest {
                 .edge(4, 5, 1)
                 .edge(2, 4, 5.1)
                 .build();
-        List<Edge> edges = new PathFinder(graph, 1, 5).getOptiomalPath();
+        List<Edge> edges = new PathFinder(graph).getOptiomalPath(1, 5);
         assertEquals(4, edges.get(1).getStartPoint());
     }
 
@@ -54,7 +54,7 @@ public class PathFinderTest {
                 .edge(4, 5, 1)
                 .edge(2, 4, 5.1)
                 .build();
-        List<Edge> edges = new PathFinder(graph, 1, 3).getOptiomalPath();
+        List<Edge> edges = new PathFinder(graph).getOptiomalPath(1, 3);
         assertEquals(2, edges.get(0).getEndPoint());
     }
 
@@ -64,6 +64,6 @@ public class PathFinderTest {
                 .edge(1, 2, 1)
                 .edge(4, 5, 1)
                 .build();
-        new PathFinder(graph, 2, 3).getOptiomalPath();
+        new PathFinder(graph).getOptiomalPath(2, 3);
     }
 }
